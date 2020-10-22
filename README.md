@@ -40,6 +40,8 @@
 ## Environment Variables
 |Variable Name           |                            Value|Optional|
 |------------------------|---------------------------------|--------|
+|APP_ENV                 |The environment to operate in (Either ```dev``` or ```prod```)|no|
+|APP_LOCALE              |The locale of the app (Currently supported: ```en```, ```de```)|no|
 |MQTT_HOST               |The ip address of the mqtt broker|(only if automation mode is ```home-assistant```)      |
 |MQTT_PORT               |The port of the mqtt broker      |(only if automation mode is ```home-assistant```)      |
 |MQTT_CLIENT_ID          |The client id for mqtt           |(only if automation mode is ```home-assistant```)      |
