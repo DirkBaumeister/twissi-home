@@ -61,6 +61,8 @@
 |SCREENSAVER_PHOTO_DIR   |Directory of the images for the screensaver (default: ```[project_root]/public/photos```). Photos need to be named like ```screensaver1.jpg, screensaver2.jpg, screensaver3.jpg...```|yes|
 |SCREENSAVER_PHOTO_DURATION|Duration for each photo on the screensaver (default: 30 sec.)|yes|
 |SCREENSAVER_TIMEOUT     |Timeout when the screensaver is triggered (default: 120 sec.)|yes|
+|SCREENSAVER_TO_DAY_MODE_HOUR|Hour (0-24) when the screensaver will change to day mode (Showing photo slideshow)|yes|
+|SCREENSAVER_TO_NIGHT_MODE_HOUR|Hour (0-24) when the screensaver will change to night mode (Only greyscale clock)|yes|
 
 ## Current limitations
 

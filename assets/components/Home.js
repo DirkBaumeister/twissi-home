@@ -58,7 +58,7 @@ class Home extends Component {
         if(null === this.screensaverMode) {
             firstRun = true;
         }
-        if(hours >= 22 || hours <= 7) {
+        if(hours >= window.screensaverToNightModeHour || hours <= window.screensaverToDayModeHour) {
             if(this.screensaverMode !== 'only_time') {
                 this.screensaverMode = 'only_time';
                 if(false === firstRun) {

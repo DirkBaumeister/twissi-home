@@ -16,11 +16,17 @@ class DefaultController extends AbstractController
 
     private $screensaverPhotoDuration;
 
-    public function __construct(string $locale, int $screensaverTimeout, int $screensaverPhotoDuration)
+    private $screensaverToDayModeHour;
+
+    private $screensaverToNightModeHour;
+
+    public function __construct(string $locale, int $screensaverTimeout, int $screensaverPhotoDuration, int $screensaverToDayModeHour, int $screensaverToNightModeHour)
     {
         $this->locale = $locale;
         $this->screensaverTimeout = $screensaverTimeout;
         $this->screensaverPhotoDuration = $screensaverPhotoDuration;
+        $this->screensaverToDayModeHour = $screensaverToDayModeHour;
+        $this->screensaverToNightModeHour = $screensaverToNightModeHour;
     }
 
     /**
@@ -35,7 +41,9 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'locale' => $this->locale,
             'screensaverTimeout' => $this->screensaverTimeout,
-            'screensaverPhotoDuration' => $this->screensaverPhotoDuration
+            'screensaverPhotoDuration' => $this->screensaverPhotoDuration,
+            'screensaverToDayModeHour' => $this->screensaverToDayModeHour,
+            'screensaverToNightModeHour' => $this->screensaverToNightModeHour
         ]);
     }
 }
