@@ -40,8 +40,6 @@ ENV APP_ENV "prod"
 
 RUN cd /code && composer install --no-dev
 
-ARG REACT_APP_WEATHER_CITY
-
 RUN cd /code && yarn install && yarn encore prod
 
 RUN rm -rf /code/node_modules
