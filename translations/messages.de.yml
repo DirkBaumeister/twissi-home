@@ -1,0 +1,51 @@
+nav.overview: Übersicht
+nav.events: Termine
+nav.control: Steuerung
+nav.surveilance: Überwachung
+date.sunday_short: So
+date.monday_short: Mo
+date.tuesday_short: Di
+date.wednesday_short: Mi
+date.thursday_short: Do
+date.friday_short: Fr
+date.saturday_short: Sa
+date.sunday_long: Sonntag
+date.monday_long: Montag
+date.tuesday_long: Dienstag
+date.wednesday_long: Mittwoch
+date.thursday_long: Donnerstag
+date.friday_long: Freitag
+date.saturday_long: Samstag
+date.january_short: Jan
+date.february_short: Feb
+date.march_short: Mär
+date.april_short: Apr
+date.may_short: Mai
+date.june_short: Jun
+date.july_short: Jul
+date.august_short: Aug
+date.september_short: Sep
+date.october_short: Okt
+date.november_short: Nov
+date.december_short: Dez
+date.january_long: Januar
+date.february_long: Februar
+date.march_long: März
+date.april_long: April
+date.may_long: Mai
+date.june_long: Juni
+date.july_long: Juli
+date.august_long: August
+date.september_long: September
+date.october_long: Oktober
+date.november_long: November
+date.december_long: Dezember
+date.time_suffix: Uhr
+msg.please_wait: Bitte warten...
+msg.no_automations_found: Aktuell gibt es keine Steuerungen
+msg.no_events_found: Aktuell gibt es keine anstehenden Termine
+msg.loading_error: Konnte nicht geladen werden!
+heading.settings: Einstellungen
+settings.reboot_system: System neustarten
+settings.restart_app: App neustarten
+settings.reload_system: System neu laden

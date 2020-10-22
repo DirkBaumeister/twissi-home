@@ -1,0 +1,3 @@
+parameters:
+  settings.screensaver.photo_path: '%env(default:settings_screensaver_default_photo_path:SCREENSAVER_PHOTO_DIR)%'
+  settings_screensaver_default_photo_path: '%kernel.project_dir%/public/photos'

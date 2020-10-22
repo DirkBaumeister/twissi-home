@@ -1,0 +1,4 @@
+parameters:
+  settings.surveillance.ip: '%env(SURVEILLANCE_IP)%'
+  settings.surveillance.username: '%env(SURVEILLANCE_USERNAME)%'
+  settings.surveillance.password: '%env(SURVEILLANCE_PASSWORD)%'

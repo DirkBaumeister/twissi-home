@@ -1,0 +1,3 @@
+parameters:
+  settings.home-assistant.api_url: '%env(HOME_ASSISTANT_API_URL)%'
+  settings.home-assistant.api_key: '%env(HOME_ASSISTANT_API_KEY)%'

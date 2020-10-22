@@ -1,0 +1,4 @@
+parameters:
+  settings.calendar.url: '%env(CALENDAR_CALDAV_URL)%'
+  settings.calendar.username: '%env(CALENDAR_CALDAV_USERNAME)%'
+  settings.calendar.password: '%env(CALENDAR_CALDAV_PASSWORD)%'

@@ -1,0 +1,5 @@
+parameters:
+  settings.mqtt.host: '%env(MQTT_HOST)%'
+  settings.mqtt.port: '%env(MQTT_PORT)%'
+  settings.mqtt.client_id: '%env(MQTT_CLIENT_ID)%'
+  settings.mqtt.command_topic: '%env(MQTT_COMMAND_TOPIC)%'

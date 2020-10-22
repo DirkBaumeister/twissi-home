@@ -1,0 +1,3 @@
+parameters:
+  settings.automation.mode: '%env(AUTOMATION_MODE)%'
+  settings.automation.entities: '%env(json:AUTOMATION_ENTITIES)%'

@@ -1,0 +1,104 @@
+imports:
+    - { resource: settings/mqtt.yaml }
+    - { resource: settings/home-assistant.yaml }
+    - { resource: settings/overview.yaml }
+    - { resource: settings/automation.yaml }
+    - { resource: settings/calendar.yaml }
+    - { resource: settings/weather.yaml }
+    - { resource: settings/surveillance.yaml }
+
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: '%env(APP_LOCALE)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    kernel.event_listener.json_request_transformer:
+        class: Qandidate\Common\Symfony\HttpKernel\EventListener\JsonRequestTransformerListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 100 }
+
+    App\Controller\DefaultController:
+        arguments:
+            - '%locale%'
+
+    App\Controller\ApiController:
+        arguments:
+            - '@=service("App\\Config\\AutomationConfig").getService()'
+            - '@App\Service\Calendar\CalDav'
+            - '@App\Service\Weather\OpenWeatherMapGateway'
+            - '%settings.screensaver.photo_path%'
+
+    App\Controller\CamController:
+        arguments:
+            - '%settings.surveillance.ip%'
+            - '%settings.surveillance.username%'
+            - '%settings.surveillance.password%'
+
+    App\Service\Calendar\CalDav:
+        arguments:
+            - '%settings.calendar.url%'
+            - '%settings.calendar.username%'
+            - '%settings.calendar.password%'
+
+    App\Service\Automation\Mqtt:
+        arguments:
+            - '@App\Service\Automation\StateStorage'
+            - '@PhpMqtt\Client\MQTTClient'
+            - '%settings.automation.entities%'
+            - '%settings.mqtt.command_topic%'
+
+    App\Service\Automation\HomeAssistant:
+        arguments:
+            - '@App\Service\Automation\StateStorage'
+            - '%settings.home-assistant.api_url%'
+            - '%settings.home-assistant.api_key%'
+            - '%settings.automation.entities%'
+
+    App\Service\Weather\OpenWeatherMapGateway:
+        arguments:
+            - '%settings.weather.city%'
+            - '%settings.weather.openweathermap_api_key%'
+
+    App\Service\Automation\StateStorage:
+        arguments:
+            - '%kernel.project_dir%'
+
+    App\Config\AutomationConfig:
+        arguments:
+            - '%settings.automation.mode%'
+            - '@App\Service\Automation\Mqtt'
+            - '@App\Service\Automation\HomeAssistant'
+
+    PhpMqtt\Client\MQTTClient:
+        arguments:
+            - '%settings.mqtt.host%'
+            - '%settings.mqtt.port%'
+            - '%settings.mqtt.client_id%'

@@ -1,0 +1,256 @@
+@import "~reset-css";
+@import "~bootstrap/scss/bootstrap";
+@import "variables";
+@import 'clock';
+@import "~react-open-weather/lib/css/ReactWeather.css";
+@import "weather-icons/weather-icons";
+body {
+  background-color: $bg-color;
+  color: $fg-color;
+  overflow: hidden;
+  hr {
+    border: none;
+    padding: 0;
+    margin: 0;
+    height: 1rem;
+    background-color: $bg-active;
+  }
+  .calendar, .automation {
+    h2 {
+      padding: 1rem;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .navbar {
+    padding: 0;
+    .navbar-nav {
+      margin: 0;
+      .nav-item {
+        padding: 0;
+        .nav-link {
+          padding: 1.3rem;
+          font-size: 1.5rem;
+          &.active {
+            font-weight: bold;
+            background-color: $bg-active;
+          }
+        }
+      }
+    }
+  }
+  .table-events {
+    background-color: $bg-color;
+    color: $fg-color;
+    font-size: 2rem;
+    tr:nth-child(1) {
+      background-color: darken($bg-active, 10);
+      opacity: 1;
+    }
+    tr:nth-child(2) {
+      background-color: darken($bg-active, 15);
+      opacity: .9;
+    }
+    tr:nth-child(3) {
+      background-color: darken($bg-active, 20);
+      opacity: .7;
+    }
+    tr:nth-child(4) {
+      background-color: darken($bg-active, 25);
+      opacity: .5;
+    }
+    tr:nth-child(5) {
+      background-color: darken($bg-active, 30);
+      opacity: .3;
+    }
+    tr {
+      background-color: darken($bg-active, 35);
+      opacity: .1;
+      border: none;
+    }
+    td {
+      border: none;
+    }
+    td:nth-child(2), td:nth-child(3) {
+      vertical-align: middle;
+    }
+    .event-sub {
+      margin: 0;
+      font-style: italic;
+      color: $fg-color-fade;
+    }
+  }
+  .control-panel {
+    padding: 2rem;
+    .control-btn {
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      background-color: $bg-button;
+      border: none;
+      color: $fg-color;
+      outline: none;
+      width: 100%;
+      p {
+        padding-top: 1rem;
+        margin: 0;
+      }
+      .light-on {
+        color: $light-on;
+      }
+    }
+  }
+  .outer {
+    height: 84vh;
+  }
+  .overview {
+    padding: 1rem;
+    .clock-place {
+      display: flex;
+      place-items: center;
+      height: 79.5vh;
+      .clock-inner {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        .clock-box {
+          margin-bottom: 1.5rem;
+        }
+        h2 {
+        }
+      }
+    }
+  }
+  .rw-main {
+    background: linear-gradient(to top left, #212121, #0c0c0c, #000000);
+    .rw-today div {
+      color: #ffffff !important;
+      i {
+        color: #ffffff !important;
+      }
+    }
+  }
+  .rw-box-days {
+    background-color: #333333;
+    border-color: #444444;
+    color: #ffffff !important;
+    i {
+      color: #ffffff !important;
+    }
+  }
+  .reload-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  .surveilance {
+    #cam-img {
+      display: block;
+      margin: 0 auto;
+      height: 84vh;
+    }
+    .controls-left, .controls-right {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 6.5rem;
+      width: 5vw;
+      height: 80vh;
+      button {
+        margin: 5px 0;
+        height: 100%;
+        font-size: 2em;
+      }
+    }
+    .controls-left {
+      left: .5rem;
+    }
+    .controls-right {
+      right: .5rem;
+    }
+  }
+  .settings {
+    .table {
+      font-size: 1.5rem;
+      tr {
+        th {
+          font-weight: bold;
+        }
+        td {
+          text-align: right;
+        }
+      }
+    }
+  }
+  .screensaver {
+    display: none;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    .screensaver-time {
+      display: none;
+      color: #222222;
+      font-size: 8rem;
+      text-align: center;
+      font-weight: bold;
+      transition: opacity 3s;
+      opacity: 1;
+      &.show {
+        display: block;
+      }
+      &.hide {
+        opacity: 0;
+      }
+    }
+    .screensaver-photo {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      img {
+        opacity: 0;
+        transition: opacity 2.5s;
+        image-orientation: from-image;
+        &.show {
+          opacity: 1;
+        }
+      }
+      &.show {
+        display: flex;
+      }
+      .screensaver-photo-time {
+        position: fixed;
+        right: 25px;
+        bottom: 0;
+        height: 120px;
+        font-size: 5rem;
+        text-align: right;
+        &.left {
+          right: 0;
+          left: 25px;
+          text-align: left;
+        }
+      }
+    }
+    &.show {
+      animation: show-screensaver-animation .5s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  @keyframes show-screensaver-animation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}

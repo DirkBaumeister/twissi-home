@@ -1,0 +1,51 @@
+nav.overview: Overview
+nav.events: Events
+nav.control: Control
+nav.surveilance: Surveilance
+date.sunday_short: Su
+date.monday_short: Mo
+date.tuesday_short: Tu
+date.wednesday_short: We
+date.thursday_short: Th
+date.friday_short: Fr
+date.saturday_short: Sa
+date.sunday_long: Sunday
+date.monday_long: Monday
+date.tuesday_long: Tuesday
+date.wednesday_long: Wednesday
+date.thursday_long: Thursday
+date.friday_long: Friday
+date.saturday_long: Saturday
+date.january_short: Jan
+date.february_short: Feb
+date.march_short: Mar
+date.april_short: Apr
+date.may_short: May
+date.june_short: Jun
+date.july_short: Jul
+date.august_short: Aug
+date.september_short: Sep
+date.october_short: Oct
+date.november_short: Nov
+date.december_short: Dez
+date.january_long: January
+date.february_long: February
+date.march_long: March
+date.april_long: April
+date.may_long: May
+date.june_long: June
+date.july_long: July
+date.august_long: August
+date.september_long: September
+date.october_long: October
+date.november_long: November
+date.december_long: December
+date.time_suffix: ''
+msg.please_wait: Please wait...
+msg.no_automations_found: Currently there are no controls
+msg.no_events_found: Currently there are no controls events
+msg.loading_error: Error while loading!
+heading.settings: Settings
+settings.reboot_system: Reboot system
+settings.restart_app: Restart app
+settings.reload_system: Reload system

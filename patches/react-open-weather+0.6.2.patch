@@ -1,0 +1,111 @@
+diff --git a/node_modules/react-open-weather/lib/js/ReactWeather.js b/node_modules/react-open-weather/lib/js/ReactWeather.js
+index 5b693ea..35bd783 100644
+--- a/node_modules/react-open-weather/lib/js/ReactWeather.js
++++ b/node_modules/react-open-weather/lib/js/ReactWeather.js
+@@ -104,14 +104,16 @@ return /******/ (function(modules) { // webpackBootstrap
+ 	  city: _react.PropTypes.string,
+ 	  forecast: _react.PropTypes.oneOf(['today', '5days']),
+ 	  apikey: _react.PropTypes.string.isRequired,
+-	  lang: _react.PropTypes.string
++	  lang: _react.PropTypes.string,
++	  doUpdate: _react.PropTypes.bool
+ 	};
+ 
+ 	var defaultProps = {
+ 	  unit: 'metric',
+ 	  type: 'city',
+ 	  forecast: 'today',
+-	  lang: 'en'
++	  lang: 'en',
++	  doUpdate: false
+ 	};
+ 
+ 	var ReactWeather = function (_React$Component) {
+@@ -136,7 +138,8 @@ return /******/ (function(modules) { // webpackBootstrap
+ 	        var _props = this.props,
+ 	            unit = _props.unit,
+ 	            forecast = _props.forecast,
+-	            lang = _props.lang;
++	            lang = _props.lang,
++	            doUpdate = _props.doUpdate;
+ 
+ 	        var data = this.state.data;
+ 	        if (data) {
+@@ -183,14 +186,25 @@ return /******/ (function(modules) { // webpackBootstrap
+ 	      return render;
+ 	    }()
+ 	  }, {
+-	    key: 'componentDidMount',
+-	    value: function () {
+-	      function componentDidMount() {
+-	        this.getForecastData();
+-	      }
+-
+-	      return componentDidMount;
+-	    }()
++		  key: 'componentDidMount',
++		  value: function () {
++			  function componentDidMount() {
++				  this.getForecastData();
++			  }
++
++			  return componentDidMount;
++		  }()
++	  }, {
++		  key: 'componentDidUpdate',
++		  value: function () {
++			  function componentDidUpdate(props) {
++			  	if(props.doUpdate) {
++					this.getForecastData();
++				}
++			  }
++
++			  return componentDidUpdate;
++		  }()
+ 	  }, {
+ 	    key: 'getForecastData',
+ 	    value: function () {
+@@ -302,7 +316,7 @@ return /******/ (function(modules) { // webpackBootstrap
+ 
+ 	    this.unit = unit;
+ 	    this.apiKey = apiKey;
+-	    this.baseApiUrl = '//api.openweathermap.org/data/2.5';
++	    this.baseApiUrl = '/api/weather';
+ 	    this.lang = lang;
+ 	  }
+ 
+@@ -4210,7 +4224,7 @@ return /******/ (function(modules) { // webpackBootstrap
+ 	      // Creating the 4 dates in the good format
+ 	      for (var i = 0; i < 4; i++) {
+ 	        tomorrow.setDate(tomorrow.getDate() + 1);
+-	        tomorrow_formated = tomorrow.getFullYear() + "-" + ("0" + tomorrow.getMonth() + 1).slice(-2) + "-" + ("0" + tomorrow.getDate()).slice(-2);
++	        tomorrow_formated = tomorrow.toLocaleDateString('fr-CA');
+ 	        fourDates.push(tomorrow_formated);
+ 	      }
+ 
+diff --git a/node_modules/react-open-weather/src/js/OpenWeatherApi.js b/node_modules/react-open-weather/src/js/OpenWeatherApi.js
+index 7a6e227..6a0b4dd 100644
+--- a/node_modules/react-open-weather/src/js/OpenWeatherApi.js
++++ b/node_modules/react-open-weather/src/js/OpenWeatherApi.js
+@@ -5,7 +5,7 @@ export default class OpenWeatherApi {
+   constructor(unit, apiKey, lang) {
+     this.unit = unit;
+     this.apiKey = apiKey;
+-    this.baseApiUrl = '//api.openweathermap.org/data/2.5';
++    this.baseApiUrl = '/api/weather';
+     this.lang = lang;
+   }
+   getForecast(args) {
+diff --git a/node_modules/react-open-weather/src/js/utils.js b/node_modules/react-open-weather/src/js/utils.js
+index 9b570fd..5514d29 100644
+--- a/node_modules/react-open-weather/src/js/utils.js
++++ b/node_modules/react-open-weather/src/js/utils.js
+@@ -46,7 +46,7 @@ module.exports = {
+     // Creating the 4 dates in the good format
+     for(var i=0; i<4; i++) {
+       tomorrow.setDate(tomorrow.getDate() + 1);
+-      tomorrow_formated = tomorrow.getFullYear() + "-" + ("0" + tomorrow.getMonth()+1).slice(-2) + "-" + ("0" + tomorrow.getDate()).slice(-2);
++      tomorrow_formated = tomorrow.toLocaleDateString('fr-CA');
+       fourDates.push(tomorrow_formated);
+     }
+     
