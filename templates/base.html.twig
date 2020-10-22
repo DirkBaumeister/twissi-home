@@ -6,7 +6,13 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-        {% if locale %}<script type="text/javascript">window.locale='{{ locale }}';</script>{% endif %}
+        {% if locale %}
+            <script type="text/javascript">
+                window.locale='{{ locale }}';
+                window.screensaverTimeout={{ screensaverTimeout }};
+                window.screensaverPhotoDuration={{ screensaverPhotoDuration }};
+            </script>
+        {% endif %}
     </head>
     <body>
         {% block body %}{% endblock %}

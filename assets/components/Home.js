@@ -46,7 +46,7 @@ class Home extends Component {
             document.getElementById('screensaver-time').classList.remove('show');
             document.getElementById('screensaver-photo').classList.add('show');
             this.getRandomPhoto();
-            this.screensaverTimer2 = setInterval(this.getRandomPhoto.bind(this), 30000);
+            this.screensaverTimer2 = setInterval(this.getRandomPhoto.bind(this), window.screensaverPhotoDuration);
             this.screensaverTimer3 = setInterval(this.switchTimePositionInImageMode, 60000);
         }
     }
@@ -129,7 +129,7 @@ class Home extends Component {
         clearTimeout(this.screensaverTimer1);
         clearTimeout(this.screensaverTimer2);
         clearTimeout(this.screensaverTimer3);
-        this.screensaverTimer = setTimeout(this.showScreenSaver.bind(this), 120000);
+        this.screensaverTimer = setTimeout(this.showScreenSaver.bind(this), window.screensaverTimeout);
     }
 
     render() {

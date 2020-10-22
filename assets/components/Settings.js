@@ -21,7 +21,7 @@ class Settings extends Component {
     }
 
     getSettingsData() {
-        axios.get(`http://localhost:9999`).then(data => {
+        axios.get(`http://localhost:9999`, {timeout: 3000}).then(data => {
             this.setState({ data: data.data, loading: false, failure: false })
         }).catch(error => {
             this.setState({ data: this.state.data, loading: false, failure: true })

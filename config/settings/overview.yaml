@@ -1,3 +1,7 @@
 parameters:
   settings.screensaver.photo_path: '%env(default:settings_screensaver_default_photo_path:SCREENSAVER_PHOTO_DIR)%'
+  settings.screensaver.timeout: '%env(default:settings_screensaver_default_timeout:int:SCREENSAVER_TIMEOUT)%'
+  settings.screensaver.photo_duration: '%env(default:settings_screensaver_default_photo_duration:int:SCREENSAVER_PHOTO_DURATION)%'
   settings_screensaver_default_photo_path: '%kernel.project_dir%/public/photos'
+  settings_screensaver_default_timeout: 120000
+  settings_screensaver_default_photo_duration: 30000

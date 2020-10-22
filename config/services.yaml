@@ -48,6 +48,8 @@ services:
     App\Controller\DefaultController:
         arguments:
             - '%locale%'
+            - '%settings.screensaver.timeout%'
+            - '%settings.screensaver.photo_duration%'
 
     App\Controller\ApiController:
         arguments:

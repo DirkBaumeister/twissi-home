@@ -12,9 +12,15 @@ class DefaultController extends AbstractController
 {
     private $locale;
 
-    public function __construct(string $locale)
+    private $screensaverTimeout;
+
+    private $screensaverPhotoDuration;
+
+    public function __construct(string $locale, int $screensaverTimeout, int $screensaverPhotoDuration)
     {
         $this->locale = $locale;
+        $this->screensaverTimeout = $screensaverTimeout;
+        $this->screensaverPhotoDuration = $screensaverPhotoDuration;
     }
 
     /**
@@ -27,7 +33,9 @@ class DefaultController extends AbstractController
     public function index()
     {
         return $this->render('default/index.html.twig', [
-            'locale' => $this->locale
+            'locale' => $this->locale,
+            'screensaverTimeout' => $this->screensaverTimeout,
+            'screensaverPhotoDuration' => $this->screensaverPhotoDuration
         ]);
     }
 }

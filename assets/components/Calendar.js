@@ -21,7 +21,7 @@ class Calendar extends Component {
     }
 
     getEvents() {
-        axios.get(`/api/events`).then(events => {
+        axios.get(`/api/events`, {timeout: 3000}).then(events => {
             this.setState({ events: [], loading: false})
             this.setState({ events: events.data, loading: false})
         })
