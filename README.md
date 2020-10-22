@@ -61,4 +61,3 @@
 
 - At the moment this a very early alpha build
 - It currently only supports a very specific IP Cam (This one: https://www.amazon.de/gp/product/B07T3JXMDM)
-- There is a a implementation planned for direct communication with home assistant. At the moment this only works via MQTT
