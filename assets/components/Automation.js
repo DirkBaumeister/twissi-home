@@ -40,11 +40,11 @@ class Automation extends Component {
         const getBulb = (state) => {
             if(state) {
                 return(
-                    <i className="fa fa-5x fa-lightbulb light-on"></i>
+                    <i className="fa fa-5x fa-lightbulb light-on" />
                 );
             } else {
                 return(
-                    <i className="fa fa-5x fa-lightbulb-o"></i>
+                    <i className="fa fa-5x fa-lightbulb-o" />
                 );
             }
         }

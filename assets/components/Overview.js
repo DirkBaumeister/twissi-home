@@ -2,6 +2,8 @@ import React, {Component, useEffect, useState} from 'react';
 import Clock from 'react-clock';
 import ReactWeather from 'react-open-weather';
 import i18n from '../utils/i18n';
+import CurrencyFormat from 'react-currency-format';
+import axios from "axios";
 var dateFormat = require('dateformat');
 dateFormat.i18n = {
     dayNames: [
@@ -54,33 +56,73 @@ class Overview extends Component {
 
     constructor() {
         super();
-        this.state = { time: new Date(), reloadWeather: false };
+        this.state = { time: new Date(), reloadWeather: false, fuel: {status: null, diesel: 0, gasoline: 0, time: -1} };
         this.timer = null;
         this.timer2 = null;
+        this.timer3 = null;
         this.setTime = this.setTime.bind(this);
         this.updateWeather = this.updateWeather.bind(this);
+        this.getGasolinePrices = this.getGasolinePrices.bind(this);
     }
 
     componentDidMount() {
         this.timer = setInterval(this.setTime, 1000);
         this.timer2 = setInterval(this.updateWeather, 900000);
+        this.getGasolinePrices();
+        this.timer3 = setInterval(this.getGasolinePrices, 10000);
     }
 
     componentWillUnmount() {
         clearTimeout(this.timer);
         clearTimeout(this.timer2);
+        clearTimeout(this.timer3);
+    }
+
+    getGasolinePrices() {
+        axios.get(`/api/gasoline`, {timeout: 3000}).then(data => {
+            if(typeof data.data.status != "undefined") {
+                this.setState({ time: this.state.time, reloadWeather: this.state.reloadWeather, fuel: {status: null, diesel: 0, gasoline: 0, time: -1} });
+                this.setState({ time: this.state.time, reloadWeather: this.state.reloadWeather, fuel: data.data });
+            }
+        })
     }
 
     setTime() {
-        this.setState({ time: new Date(), reloadWeather: false });
+        this.setState({ time: new Date(), reloadWeather: false, fuel: this.state.fuel });
     }
 
     updateWeather() {
-        this.setState({ time: this.state.time, reloadWeather: true });
-        this.setState({ time: this.state.time, reloadWeather: false });
+        this.setState({ time: this.state.time, reloadWeather: true, fuel: this.state.fuel });
+        this.setState({ time: this.state.time, reloadWeather: false, fuel: this.state.fuel });
+    }
+
+    renderCurrency(value) {
+        if(0 === value) {
+            return "-";
+        }
+        return (
+            <CurrencyFormat value={value} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={3} fixedDecimalScale={true} suffix={' €'} />
+        )
     }
 
     render() {
+
+        const renderFuelPrices = (data) => {
+
+            if(null === data.status) {
+                return;
+            }
+
+            return (
+                <div>
+                    <i className={"fa fa-gas-pump " + (data.status ? "text-success" : "text-danger")} />&nbsp;
+                    <span>{i18n.t('msg.diesel')}: {this.renderCurrency(data.diesel)}</span>&nbsp;
+                    <span>{i18n.t('msg.petrol')}: {this.renderCurrency(data.petrol)}</span>
+                    <br />
+                    <small>{i18n.t('msg.last_updated')}: {dateFormat(new Date(data.time * 1000), 'HH:MM, dd.mm.yyyy')}</small>
+                </div>
+            )
+        }
 
         return(
             <div className="overview">
@@ -94,6 +136,9 @@ class Overview extends Component {
                                 <h2 className="text-center">{dateFormat(this.state.time, 'HH:MM')} {i18n.t('date.time_suffix')}</h2>
                                 <h2 className="text-center">{dateFormat(this.state.time, 'd. mmmm yyyy')}</h2>
                                 <h2 className="text-center">{dateFormat(this.state.time, 'dddd')}</h2>
+                                <h2 className="mt-2 text-center">
+                                    {renderFuelPrices(this.state.fuel)}
+                                </h2>
                             </div>
                         </div>
                     </div>

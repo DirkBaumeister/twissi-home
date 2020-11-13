@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\Automation\AutomationInterface;
 use App\Service\Calendar\CalendarInterface;
+use App\Service\Gasoline\GasolineInterface;
 use App\Service\Weather\WeatherInterface;
 use App\Service\Automation\StateStorage;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,13 +23,16 @@ class ApiController extends AbstractController
 
     private $weather;
 
+    private $gasoline;
+
     private $photoPath;
 
-    public function __construct(AutomationInterface $automation, CalendarInterface $calendar, WeatherInterface $weather, $photoPath)
+    public function __construct(AutomationInterface $automation, CalendarInterface $calendar, WeatherInterface $weather, GasolineInterface $gasoline, $photoPath)
     {
         $this->automation = $automation;
         $this->calendar = $calendar;
         $this->weather = $weather;
+        $this->gasoline = $gasoline;
         $this->photoPath = $photoPath;
     }
 
@@ -92,5 +96,13 @@ class ApiController extends AbstractController
             $data[] = '/photos/' . $photo->getFilename();
         }
         return $this->json($data);
+    }
+
+    /**
+     * @Route("/gasoline", name="api_gasoline")
+     */
+    public function gasoline()
+    {
+        return $this->json($this->gasoline->getPrices());
     }
 }

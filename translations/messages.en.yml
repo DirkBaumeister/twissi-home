@@ -45,6 +45,9 @@ msg.please_wait: Please wait...
 msg.no_automations_found: Currently there are no controls
 msg.no_events_found: Currently there are no controls events
 msg.loading_error: Error while loading!
+msg.diesel: Diesel
+msg.petrol: Petrol
+msg.last_updated: Last update
 heading.settings: Settings
 settings.reboot_system: Reboot system
 settings.restart_app: Restart app

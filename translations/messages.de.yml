@@ -45,6 +45,9 @@ msg.please_wait: Bitte warten...
 msg.no_automations_found: Aktuell gibt es keine Steuerungen
 msg.no_events_found: Aktuell gibt es keine anstehenden Termine
 msg.loading_error: Konnte nicht geladen werden!
+msg.diesel: Diesel
+msg.petrol: Benzin
+msg.last_updated: Zuletzt aktualisiert
 heading.settings: Einstellungen
 settings.reboot_system: System neustarten
 settings.restart_app: App neustarten

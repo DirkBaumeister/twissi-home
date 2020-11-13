@@ -6,6 +6,7 @@ imports:
     - { resource: settings/calendar.yaml }
     - { resource: settings/weather.yaml }
     - { resource: settings/surveillance.yaml }
+    - { resource: settings/gasoline.yaml }
 
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
@@ -58,6 +59,7 @@ services:
             - '@=service("App\\Config\\AutomationConfig").getService()'
             - '@App\Service\Calendar\CalDav'
             - '@App\Service\Weather\OpenWeatherMapGateway'
+            - '@App\Service\Gasoline\TankerKoenigGateway'
             - '%settings.screensaver.photo_path%'
 
     App\Controller\CamController:
@@ -94,6 +96,11 @@ services:
     App\Service\Automation\StateStorage:
         arguments:
             - '%kernel.project_dir%'
+
+    App\Service\Gasoline\TankerKoenigGateway:
+        arguments:
+            - '%settings.gasoline.tanker_koenig_api_key%'
+            - '%settings.gasoline.tanker_koenig_station_id%'
 
     App\Config\AutomationConfig:
         arguments:

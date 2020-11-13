@@ -63,6 +63,8 @@
 |SCREENSAVER_TIMEOUT     |Timeout when the screensaver is triggered (default: 120 sec.)|yes|
 |SCREENSAVER_TO_DAY_MODE_HOUR|Hour (0-24) when the screensaver will change to day mode (Showing photo slideshow) (default: 7)|yes|
 |SCREENSAVER_TO_NIGHT_MODE_HOUR|Hour (0-24) when the screensaver will change to night mode (Only greyscale clock) (default: 22)|yes|
+|TANKER_KOENIG_API_KEY|Api key for the gasoline api of tanker koenig (germany)|yes|
+|TANKER_KOENIG_STATION_ID|Station ID of the gasoline station from tanker koenig|yes|
 
 ## Current limitations
 
