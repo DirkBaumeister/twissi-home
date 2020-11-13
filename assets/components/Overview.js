@@ -69,7 +69,7 @@ class Overview extends Component {
         this.timer = setInterval(this.setTime, 1000);
         this.timer2 = setInterval(this.updateWeather, 900000);
         this.getGasolinePrices();
-        this.timer3 = setInterval(this.getGasolinePrices, 10000);
+        this.timer3 = setInterval(this.getGasolinePrices, 60000);
     }
 
     componentWillUnmount() {
