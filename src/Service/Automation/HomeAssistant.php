@@ -49,9 +49,13 @@ class HomeAssistant implements AutomationInterface
                 ]
             ]);
             if ($response->getStatusCode() === 200) {
-                if ($data = json_decode($response->getBody()->getContents(), true)) {
+                if (false !== $data = json_decode($response->getBody()->getContents(), true)) {
                     if (isset($data[0]['state'])) {
                         $this->stateStorage->setEntityState($id, $data[0]['state'] === 'on');
+                        return true;
+                    } else {
+                        sleep(1);
+                        $this->updateStates();
                         return true;
                     }
                 }

@@ -27,6 +27,9 @@ class StateStorage
     public function setEntityState(string $id, bool $state): self
     {
         $file = $this->getStateFilePath($id);
+        if (false === file_exists($file)) {
+            touch($file);
+        }
         if (is_writable($file)) {
             file_put_contents($file, $state ? "1" : "0");
         }
