@@ -16,12 +16,15 @@ class HomeAssistant implements AutomationInterface
 
     private $client;
 
-    public function __construct(StateStorage $stateStorage, string $apiUrl, string $apiKey, array $automationEntities)
+    private $externalControlUrl;
+
+    public function __construct(StateStorage $stateStorage, string $apiUrl, string $apiKey, array $automationEntities, string $externalControlUrl)
     {
         $this->stateStorage = $stateStorage;
         $this->apiUrl = $apiUrl;
         $this->apiKey = $apiKey;
         $this->automationEntities = $automationEntities;
+        $this->externalControlUrl = $externalControlUrl;
         $this->client = new Client();
     }
 
@@ -33,7 +36,7 @@ class HomeAssistant implements AutomationInterface
             $automationEntity['state'] = $this->stateStorage->getEntityState($automationEntity['id']);
             $data[$key] = $automationEntity;
         }
-        return $data;
+        return ['entities' => $data, 'external_control' => $this->externalControlUrl ];
     }
 
     public function controlEntity($id, bool $state): bool

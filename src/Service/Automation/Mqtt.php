@@ -14,12 +14,15 @@ class Mqtt implements AutomationInterface
 
     private $commandTopic;
 
-    public function __construct(StateStorage $stateStorage, MQTTClient $mqtt, array $automationEntities, string $commandTopic)
+    private $externalControlUrl;
+
+    public function __construct(StateStorage $stateStorage, MQTTClient $mqtt, array $automationEntities, string $commandTopic, string $externalControlUrl)
     {
         $this->stateStorage = $stateStorage;
         $this->mqtt = $mqtt;
         $this->automationEntities = $automationEntities;
         $this->commandTopic = $commandTopic;
+        $this->externalControlUrl = $externalControlUrl;
     }
 
     public function getAutomationEntities(): array
@@ -29,7 +32,7 @@ class Mqtt implements AutomationInterface
             $automationEntity['state'] = $this->stateStorage->getEntityState($automationEntity['id']);
             $data[$key] = $automationEntity;
         }
-        return $data;
+        return ['entities' => $data, 'external_control' => $this->externalControlUrl ];
     }
 
     public function controlEntity($id, bool $state) : bool

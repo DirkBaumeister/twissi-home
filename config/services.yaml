@@ -80,6 +80,7 @@ services:
             - '@PhpMqtt\Client\MQTTClient'
             - '%settings.automation.entities%'
             - '%settings.mqtt.command_topic%'
+            - '%settings.automation.external_control_url%'
 
     App\Service\Automation\HomeAssistant:
         arguments:
@@ -87,6 +88,7 @@ services:
             - '%settings.home-assistant.api_url%'
             - '%settings.home-assistant.api_key%'
             - '%settings.automation.entities%'
+            - '%settings.automation.external_control_url%'
 
     App\Service\Weather\OpenWeatherMapGateway:
         arguments:

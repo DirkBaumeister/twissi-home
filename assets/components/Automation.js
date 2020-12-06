@@ -6,7 +6,7 @@ class Automation extends Component {
 
     constructor() {
         super();
-        this.state = { controls: [], loading: true };
+        this.state = { controls: [], external_control: null, loading: true };
         this.timer = null;
         this.getAutomationEntities = this.getAutomationEntities.bind(this);
     }
@@ -22,8 +22,8 @@ class Automation extends Component {
 
     getAutomationEntities() {
         axios.get(`/api/automation`).then(controls => {
-            this.setState({ controls: [], loading: false })
-            this.setState({ controls: controls.data, loading: false })
+            this.setState({ controls: [], external_control: this.state.external_control, loading: false })
+            this.setState({ controls: controls.data.entities, external_control: controls.data.external_control, loading: false })
         })
     }
 
@@ -57,6 +57,14 @@ class Automation extends Component {
                     <h2 className="text-center">
                         {i18n.t('msg.please_wait')}
                     </h2>
+                </div>
+            );
+        }
+
+        if(this.state.external_control) {
+            return(
+                <div className="automation">
+                    <iframe src={this.state.external_control}></iframe>
                 </div>
             );
         }
