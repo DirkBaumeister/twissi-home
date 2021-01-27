@@ -52,7 +52,15 @@ class CalDav implements CalendarInterface
             $item->expiresAfter(60);
             $iCal = new ICal();
             $iCal->initUrl($this->caldavUrl, $this->caldavUser, $this->caldavPass);
-            return $iCal->events();
+            $events = $iCal->events();
+            krsort($events);
+            /** @var Event $event */
+            foreach($events as $key => $event) {
+                if(strtotime($event->dtstart) <= time()) {
+                    unset($events[$key]);
+                }
+            }
+            return $events;
         });
         return $result;
     }
