@@ -1,6 +1,27 @@
-$bg-color: #000;
-$fg-color: #fff;
-$fg-color-fade: #bbb;
-$bg-active: #666;
-$bg-button: #333;
-$light-on: #cc9900;
+:root {
+  --bg-color: 0, 0, 0;
+  --fg-color: #fff;
+  --color-fade: #bbb;
+  --bg-active: 102, 102, 102;
+  --bg-button: #333;
+  --light-on: #cc9900;
+}
+
+body {
+  &.theme-blue {
+    --bg-color: 29, 53, 87;
+    --bg-active: 69, 123, 157;
+  }
+  &.theme-red {
+    --bg-color: 84, 11, 14;
+    --bg-active: 158, 42, 43;
+  }
+  &.theme-mild {
+    --bg-color: 15, 76, 92;
+    --bg-active: 227, 100, 20;
+  }
+  &.theme-mesa {
+    --bg-color: 37, 36, 34;
+    --bg-active: 235, 94, 40;
+  }
+}

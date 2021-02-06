@@ -1,19 +1,19 @@
+@import "variables";
 @import "~reset-css";
 @import "~bootstrap/scss/bootstrap";
-@import "variables";
 @import 'clock';
 @import "~react-open-weather/lib/css/ReactWeather.css";
 @import "weather-icons/weather-icons";
 body {
-  background-color: $bg-color;
-  color: $fg-color;
+  background-color: rgba(var(--bg-color), 1);
+  color: var(--fg-color);
   overflow: hidden;
   hr {
     border: none;
     padding: 0;
     margin: 0;
     height: 1rem;
-    background-color: $bg-active;
+    background-color: rgba(var(--bg-active), 1);
   }
   .calendar, .automation {
     h2 {
@@ -25,6 +25,7 @@ body {
     }
   }
   .navbar {
+    background-color: rgba(var(--bg-active), .5) !important;
     padding: 0;
     .navbar-nav {
       margin: 0;
@@ -35,38 +36,38 @@ body {
           font-size: 1.5rem;
           &.active {
             font-weight: bold;
-            background-color: $bg-active;
+            background-color: rgba(var(--bg-active), 1);
           }
         }
       }
     }
   }
   .table-events {
-    background-color: $bg-color;
-    color: $fg-color;
+    background-color: var(--bg-color);
+    color: var(--fg-color);
     font-size: 2rem;
     tr:nth-child(1) {
-      background-color: darken($bg-active, 10);
+      background-color: rgba(var(--bg-active), 35%);
       opacity: 1;
     }
     tr:nth-child(2) {
-      background-color: darken($bg-active, 15);
+      background-color: rgba(var(--bg-active), 30%);
       opacity: .9;
     }
     tr:nth-child(3) {
-      background-color: darken($bg-active, 20);
+      background-color: rgba(var(--bg-active), 25%);
       opacity: .7;
     }
     tr:nth-child(4) {
-      background-color: darken($bg-active, 25);
+      background-color: rgba(var(--bg-active), 20%);
       opacity: .5;
     }
     tr:nth-child(5) {
-      background-color: darken($bg-active, 30);
+      background-color: rgba(var(--bg-active), 15%);
       opacity: .3;
     }
     tr {
-      background-color: darken($bg-active, 35);
+      background-color: rgba(var(--bg-active), 10%);
       opacity: .1;
       border: none;
     }
@@ -79,7 +80,7 @@ body {
     .event-sub {
       margin: 0;
       font-style: italic;
-      color: $fg-color-fade;
+      color: var(--fg-color-fade);
     }
   }
   .control-panel {
@@ -87,9 +88,9 @@ body {
     .control-btn {
       padding: 2rem 0;
       margin-bottom: 2rem;
-      background-color: $bg-button;
+      background-color: var(--bg-button);
       border: none;
-      color: $fg-color;
+      color: var(--fg-color);
       outline: none;
       width: 100%;
       p {
@@ -97,7 +98,7 @@ body {
         margin: 0;
       }
       .light-on {
-        color: $light-on;
+        color: var(--light-on);
       }
     }
   }
@@ -130,20 +131,20 @@ body {
     }
   }
   .rw-main {
-    background: linear-gradient(to top left, #212121, #0c0c0c, #000000);
+    background: transparent;
     .rw-today div {
-      color: #ffffff !important;
+      color: var(--fg-color) !important;
       i {
-        color: #ffffff !important;
+        color: var(--fg-color) !important;
       }
     }
   }
   .rw-box-days {
-    background-color: #333333;
+    background-color: rgba(var(--bg-active), 1);
     border-color: #444444;
-    color: #ffffff !important;
+    color: var(--fg-color) !important;
     i {
-      color: #ffffff !important;
+      color: var(--fg-color) !important;
     }
   }
   .reload-btn {

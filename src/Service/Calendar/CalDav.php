@@ -55,8 +55,8 @@ class CalDav implements CalendarInterface
             $events = $iCal->events();
             krsort($events);
             /** @var Event $event */
-            foreach($events as $key => $event) {
-                if(strtotime($event->dtstart) <= time()) {
+            foreach ($events as $key => $event) {
+                if (strtotime($event->dtstart) <= time()) {
                     unset($events[$key]);
                 }
             }
