@@ -52,3 +52,4 @@ heading.settings: Settings
 settings.reboot_system: Reboot system
 settings.restart_app: Restart app
 settings.reload_system: Reload system
+settings.switch_theme: Switch theme

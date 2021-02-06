@@ -26,6 +26,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        this.setTheme();
         setInterval(this.setTime, 1000);
     }
 
@@ -48,6 +49,19 @@ class Home extends Component {
             this.getRandomPhoto();
             this.screensaverTimer2 = setInterval(this.getRandomPhoto.bind(this), window.screensaverPhotoDuration);
             this.screensaverTimer3 = setInterval(this.switchTimePositionInImageMode, 60000);
+        }
+    }
+
+    setTheme() {
+        if(window.localStorage.getItem('theme')) {
+            if(window.theme !== window.localStorage.getItem('theme')) {
+                var e = document.getElementById('main-body');
+                if(e.classList.contains('theme-' + window.theme)) {
+                    e.classList.remove('theme-' + window.theme);
+                }
+                window.theme = window.localStorage.getItem('theme');
+                e.classList.add('theme-' + window.theme);
+            }
         }
     }
 

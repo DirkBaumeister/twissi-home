@@ -37,6 +37,21 @@ class Settings extends Component {
         window.location.reload();
     }
 
+    switchTheme() {
+        var themes = ['', 'blue', 'red', 'mild', 'mesa'];
+        var e = document.getElementById('main-body');
+        if(e.classList.contains('theme-' + window.theme)) {
+            e.classList.remove('theme-' + window.theme);
+        }
+        var nextIndex = themes.indexOf(window.theme) + 1;
+        if(nextIndex > themes.length - 1) {
+            nextIndex = 0;
+        }
+        window.theme = themes[nextIndex];
+        e.classList.add('theme-' + window.theme);
+        window.localStorage.setItem('theme', window.theme);
+    }
+
     render() {
 
         const loading = this.state.loading;
@@ -90,6 +105,7 @@ class Settings extends Component {
                             <button className="btn btn-danger btn-lg d-block w-100" onClick={() => this.triggerSettingsAction('reboot')}>{i18n.t('settings.reboot_system')}</button>
                             <button className="btn btn-warning btn-lg d-block w-100 mt-3" onClick={() => this.triggerSettingsAction('restart')}>{i18n.t('settings.restart_app')}</button>
                             <button className="btn btn-secondary btn-lg d-block w-100 mt-3" onClick={this.reloadPage}>{i18n.t('settings.reload_system')}</button>
+                            <button className="btn btn-secondary btn-lg d-block w-100 mt-3" onClick={this.switchTheme}>{i18n.t('settings.switch_theme')}</button>
                         </div>
                     </div>
                 </div>
