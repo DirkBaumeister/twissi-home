@@ -22,7 +22,9 @@ class DefaultController extends AbstractController
 
     private $screensaverToNightModeHour;
 
-    public function __construct(string $locale, string $theme, int $screensaverTimeout, int $screensaverPhotoDuration, int $screensaverToDayModeHour, int $screensaverToNightModeHour)
+    private $surveillanceExternal;
+
+    public function __construct(string $locale, string $theme, int $screensaverTimeout, int $screensaverPhotoDuration, int $screensaverToDayModeHour, int $screensaverToNightModeHour, bool $surveillanceExternal)
     {
         $this->locale = $locale;
         $this->theme = $theme;
@@ -30,6 +32,7 @@ class DefaultController extends AbstractController
         $this->screensaverPhotoDuration = $screensaverPhotoDuration;
         $this->screensaverToDayModeHour = $screensaverToDayModeHour;
         $this->screensaverToNightModeHour = $screensaverToNightModeHour;
+        $this->surveillanceExternal = $surveillanceExternal;
     }
 
     /**
@@ -47,7 +50,8 @@ class DefaultController extends AbstractController
             'screensaverTimeout' => $this->screensaverTimeout,
             'screensaverPhotoDuration' => $this->screensaverPhotoDuration,
             'screensaverToDayModeHour' => $this->screensaverToDayModeHour,
-            'screensaverToNightModeHour' => $this->screensaverToNightModeHour
+            'screensaverToNightModeHour' => $this->screensaverToNightModeHour,
+            'surveillanceExternal' => $this->surveillanceExternal
         ]);
     }
 }

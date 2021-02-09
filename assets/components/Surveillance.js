@@ -11,8 +11,25 @@ class Surveillance extends Component {
     }
 
 
+    componentDidMount() {
+        if(true === window.surveillanceExternal) {
+            this.triggerCamera('start_cam');
+        }
+    }
+
+    componentWillUnmount() {
+        if(true === window.surveillanceExternal) {
+            this.triggerCamera('stop_cam');
+        }
+    }
+
     getImage() {
         document.getElementById("cam-img").src = "/cam?time=" + Date.now();
+    }
+
+    triggerCamera(cmd) {
+        axios.post(`http://localhost:9999`, {'cmd':cmd}).then(data => {
+        })
     }
 
     doCameraMove(action) {
@@ -25,6 +42,29 @@ class Surveillance extends Component {
 
     doCameraStop() {
         this.doCameraMove('stop');
+    }
+
+    getImageElement() {
+
+        if(true === window.surveillanceExternal) {
+            return (
+                <div className="lds-roller">
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                    <div/>
+                </div>
+            )
+        } else {
+
+            return (
+                <img src="/cam" id="cam-img" onLoad={this.getImage} />
+            )
+        }
     }
 
     render() {
@@ -43,7 +83,7 @@ class Surveillance extends Component {
 
         return(
             <div className="surveilance">
-                <img src="/cam" id="cam-img" onLoad={this.getImage} />
+                {this.getImageElement()}
                 <div className="controls-left">
                     <button className="btn btn-primary" onTouchStart={() => this.doCameraMove('up')} onTouchEnd={() => this.doCameraMove('stop')}><i className="fa fa-arrow-up"></i></button>
                     <button className="btn btn-primary" onTouchStart={() => this.doCameraMove('left')} onTouchEnd={() => this.doCameraMove('stop')}><i className="fa fa-arrow-left"></i></button>

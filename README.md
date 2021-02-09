@@ -59,6 +59,7 @@
 |SURVEILLANCE_IP         |The ip address of the IP Cam     |no      |
 |SURVEILLANCE_USERNAME   |The username for the IP Cam      |no      |
 |SURVEILLANCE_PASSWORD   |The password for the IP Cam      |no      |
+|SURVEILLANCE_EXTERNAL   |Use external camera trigger (post with ```{"cmd":"start_cam"}``` and ```{"cmd":"stop_cam"}``` are send to localhost:9999)|yes      |
 |SCREENSAVER_PHOTO_DIR   |Directory of the images for the screensaver (default: ```[project_root]/public/photos```). Photos need to be named like ```screensaver1.jpg, screensaver2.jpg, screensaver3.jpg...```|yes|
 |SCREENSAVER_PHOTO_DURATION|Duration for each photo on the screensaver (default: 30 sec.)|yes|
 |SCREENSAVER_TIMEOUT     |Timeout when the screensaver is triggered (default: 120 sec.)|yes|

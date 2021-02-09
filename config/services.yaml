@@ -55,6 +55,7 @@ services:
             - '%settings.screensaver.photo_duration%'
             - '%settings.screensaver.to_day_mode_hour%'
             - '%settings.screensaver.to_night_mode_hour%'
+            - '%settings.surveillance.external%'
 
     App\Controller\ApiController:
         arguments:
