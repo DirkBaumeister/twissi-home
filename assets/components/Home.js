@@ -31,11 +31,19 @@ class Home extends Component {
     }
 
     hideScreenSaver() {
+        if(true === window.screensaverWhileCam) {
+            axios.post(`http://localhost:9999`, {'cmd':'start_cam'}).then(data => {
+            })
+        }
         document.getElementById('screensaver').classList.remove('show');
         this.resetScreenSaverTimeout();
     }
 
     showScreenSaver() {
+        if(true === window.screensaverWhileCam) {
+            axios.post(`http://localhost:9999`, {'cmd':'stop_cam'}).then(data => {
+            })
+        }
         document.getElementById('screensaver').classList.add('show');
         console.log(this.screensaverMode);
         if('only_time' === this.screensaverMode) {

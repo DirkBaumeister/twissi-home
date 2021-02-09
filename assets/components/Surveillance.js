@@ -13,12 +13,14 @@ class Surveillance extends Component {
 
     componentDidMount() {
         if(true === window.surveillanceExternal) {
+            window.screensaverWhileCam = true;
             this.triggerCamera('start_cam');
         }
     }
 
     componentWillUnmount() {
         if(true === window.surveillanceExternal) {
+            window.screensaverWhileCam = false;
             this.triggerCamera('stop_cam');
         }
     }
