@@ -18,6 +18,7 @@ class Home extends Component {
         this.screensaverTimer2 = null;
         this.screensaverTimer3 = null;
         this.screensaverMode = null;
+        this.screensaverStarted = false;
         this.resetScreenSaverTimeout();
         this.setTime = this.setTime.bind(this);
         this.showScreenSaver = this.showScreenSaver.bind(this);
@@ -31,15 +32,17 @@ class Home extends Component {
     }
 
     hideScreenSaver() {
-        if(true === window.screensaverWhileCam) {
+        if(true === this.screensaverStarted && true === window.screensaverWhileCam) {
             axios.post(`http://localhost:9999`, {'cmd':'start_cam'}).then(data => {
             })
         }
+        this.screensaverStarted = false;
         document.getElementById('screensaver').classList.remove('show');
         this.resetScreenSaverTimeout();
     }
 
     showScreenSaver() {
+        this.screensaverStarted = true;
         if(true === window.screensaverWhileCam) {
             axios.post(`http://localhost:9999`, {'cmd':'stop_cam'}).then(data => {
             })
