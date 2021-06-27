@@ -56,6 +56,7 @@
 |AUTOMATION_ENTITIES     |A json array in the following structure: ```[{"id":"test1","friendly_name":"Lamp 1"},{"id":"test2","friendly_name":"Lamp 2"}]```|no|
 |WEATHER_CITY            |The city name for the weather    |no      |
 |WEATHER_OPENWEATHERMAP_API_KEY|Api key for openweathermap |no      |
+|WEATHER_FORECAST_URL|Url to show in frame when forecast button is pressed |no      |
 |SURVEILLANCE_IP         |The ip address of the IP Cam     |no      |
 |SURVEILLANCE_USERNAME   |The username for the IP Cam      |no      |
 |SURVEILLANCE_PASSWORD   |The password for the IP Cam      |no      |

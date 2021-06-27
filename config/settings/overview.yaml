@@ -4,8 +4,10 @@ parameters:
   settings.screensaver.photo_duration: '%env(default:settings_screensaver_default_photo_duration:int:SCREENSAVER_PHOTO_DURATION)%'
   settings.screensaver.to_day_mode_hour: '%env(default:settings_screensaver_default_to_day_mode_hour:int:SCREENSAVER_TO_DAY_MODE_HOUR)%'
   settings.screensaver.to_night_mode_hour: '%env(default:settings_screensaver_default_to_night_mode_hour:int:SCREENSAVER_TO_NIGHT_MODE_HOUR)%'
+  settings.weather.forecast_url: '%env(default:settings_weather_default_forecast_url:WEATHER_FORECAST_URL)%'
   settings_screensaver_default_photo_path: '%kernel.project_dir%/public/photos'
   settings_screensaver_default_timeout: 120000
   settings_screensaver_default_photo_duration: 30000
   settings_screensaver_default_to_day_mode_hour: 7
   settings_screensaver_default_to_night_mode_hour: 22
+  settings_weather_default_forecast_url: ''

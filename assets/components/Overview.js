@@ -56,13 +56,14 @@ class Overview extends Component {
 
     constructor() {
         super();
-        this.state = { time: new Date(), reloadWeather: false, fuel: {status: null, diesel: 0, gasoline: 0, time: -1} };
+        this.state = { time: new Date(), reloadWeather: false, fuel: {status: null, diesel: 0, gasoline: 0, time: -1}, showForecast: false };
         this.timer = null;
         this.timer2 = null;
         this.timer3 = null;
         this.setTime = this.setTime.bind(this);
         this.updateWeather = this.updateWeather.bind(this);
         this.getGasolinePrices = this.getGasolinePrices.bind(this);
+        this.toggleForecastFrame = this.toggleForecastFrame.bind(this);
     }
 
     componentDidMount() {
@@ -81,19 +82,19 @@ class Overview extends Component {
     getGasolinePrices() {
         axios.get(`/api/gasoline`, {timeout: 3000}).then(data => {
             if(typeof data.data.status != "undefined") {
-                this.setState({ time: this.state.time, reloadWeather: this.state.reloadWeather, fuel: {status: null, diesel: 0, gasoline: 0, time: -1} });
-                this.setState({ time: this.state.time, reloadWeather: this.state.reloadWeather, fuel: data.data });
+                this.setState({ time: this.state.time, reloadWeather: this.state.reloadWeather, fuel: {status: null, diesel: 0, gasoline: 0, time: -1}, showForecast: this.state.showForecast });
+                this.setState({ time: this.state.time, reloadWeather: this.state.reloadWeather, fuel: data.data, showForecast: this.state.showForecast });
             }
         })
     }
 
     setTime() {
-        this.setState({ time: new Date(), reloadWeather: false, fuel: this.state.fuel });
+        this.setState({ time: new Date(), reloadWeather: false, fuel: this.state.fuel, showForecast: this.state.showForecast });
     }
 
     updateWeather() {
-        this.setState({ time: this.state.time, reloadWeather: true, fuel: this.state.fuel });
-        this.setState({ time: this.state.time, reloadWeather: false, fuel: this.state.fuel });
+        this.setState({ time: this.state.time, reloadWeather: true, fuel: this.state.fuel, showForecast: this.state.showForecast });
+        this.setState({ time: this.state.time, reloadWeather: false, fuel: this.state.fuel, showForecast: this.state.showForecast });
     }
 
     renderCurrency(value) {
@@ -103,6 +104,31 @@ class Overview extends Component {
         return (
             <CurrencyFormat value={value} displayType={'text'} thousandSeparator={'.'} decimalSeparator={','} decimalScale={3} fixedDecimalScale={true} suffix={' €'} />
         )
+    }
+
+    renderForecast() {
+        if('' === window.weatherForecastUrl) {
+            return;
+        }
+        return (
+            <div>
+                <div className="forecast-btn" onClick={this.toggleForecastFrame}><i className="fa fa-chart-bar" /></div>
+                {this.renderForecastFrame()}
+            </div>
+        )
+    }
+
+    renderForecastFrame() {
+        if(false === this.state.showForecast) {
+            return;
+        }
+        return (
+            <iframe src={window.weatherForecastUrl} className="forecast-frame" />
+        )
+    }
+
+    toggleForecastFrame() {
+        this.setState({ showForecast: !this.state.showForecast });
     }
 
     render() {
@@ -153,6 +179,7 @@ class Overview extends Component {
                         />
                     </div>
                 </div>
+                {this.renderForecast()}
             </div>
         )
     }
