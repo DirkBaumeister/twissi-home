@@ -30,7 +30,7 @@ class CalDav implements CalendarInterface
             $endDate = date("d.m.Y", strtotime($event->dtend));
             $endTime = date("H:i", strtotime($event->dtend));
             $endDateCheck = date("d.m.Y", strtotime($event->dtend . ' - 1 Day'));
-            $data[] = [
+            $data[strtotime($event->dtstart) . rand(1000,9999)] = [
                 'id' => $event->uid,
                 'start_date' => $startDate,
                 'start_time' => $startTime,
@@ -42,7 +42,12 @@ class CalDav implements CalendarInterface
                 'description' => $event->description
             ];
         }
-        return $data;
+        ksort($data);
+        $sortedData = [];
+        foreach($data as $item) {
+            $sortedData[] = $item;
+        }
+        return $sortedData;
     }
 
     private function getICalData()
@@ -53,7 +58,6 @@ class CalDav implements CalendarInterface
             $iCal = new ICal();
             $iCal->initUrl($this->caldavUrl, $this->caldavUser, $this->caldavPass);
             $events = $iCal->events();
-            krsort($events);
             /** @var Event $event */
             foreach ($events as $key => $event) {
                 if (strtotime($event->dtstart) <= time()) {
