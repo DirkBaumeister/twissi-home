@@ -57,6 +57,8 @@ services:
             - '%settings.screensaver.to_night_mode_hour%'
             - '%settings.surveillance.external%'
             - '%settings.weather.forecast_url%'
+            - '%settings.notification.mqtt_broker%'
+            - '%settings.notification.mqtt_topic%'
 
     App\Controller\ApiController:
         arguments:

@@ -24,6 +24,7 @@
         "dateformat": "^3.0.3",
         "i18next": "^19.8.2",
         "js-yaml-loader": "^1.2.2",
+        "mqtt": "^4.2.8",
         "patch-package": "^6.2.2",
         "prop-types": "^15.7.2",
         "react": "^16.13.1",

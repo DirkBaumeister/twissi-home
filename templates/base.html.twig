@@ -17,6 +17,8 @@
                 window.screensaverWhileCam=false;
                 window.surveillanceExternal={% if surveillanceExternal %}true{% else %}false{% endif %};
                 window.weatherForecastUrl="{{ weatherForecastUrl }}";
+                window.notificationMqttBroker="{{ notificationMqttBroker }}";
+                window.notificationMqttTopic="{{ notificationMqttTopic }}";
             </script>
         {% endif %}
     </head>

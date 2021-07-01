@@ -8,17 +8,20 @@ import Settings from "./Settings";
 import axios from 'axios';
 import i18n from '../utils/i18n';
 
+const mqtt = require('mqtt')
+
 class Home extends Component {
 
     constructor() {
         super();
-        this.state = { time: new Date(), photo: null };
+        this.state = { time: new Date(), photo: null, notificationShow: false, notifications: [] };
         this.screensaverTimer = null;
         this.screensaverTimer1 = null;
         this.screensaverTimer2 = null;
         this.screensaverTimer3 = null;
         this.screensaverMode = null;
         this.screensaverStarted = false;
+        this.mqttClient = null;
         this.resetScreenSaverTimeout();
         this.setTime = this.setTime.bind(this);
         this.showScreenSaver = this.showScreenSaver.bind(this);
@@ -29,6 +32,11 @@ class Home extends Component {
     componentDidMount() {
         this.setTheme();
         setInterval(this.setTime, 1000);
+        this.startMqttNotificationListener();
+    }
+
+    componentWillUnmount() {
+        this.stopMqttNotificationListener();
     }
 
     hideScreenSaver() {
@@ -157,6 +165,76 @@ class Home extends Component {
         this.screensaverTimer = setTimeout(this.showScreenSaver.bind(this), window.screensaverTimeout);
     }
 
+    startMqttNotificationListener() {
+        if(window.notificationMqttBroker && window.notificationMqttTopic) {
+            this.mqttClient = mqtt.connect('mqtt://' + window.notificationMqttBroker);
+            const e = this;
+            this.mqttClient.on('connect', function () {
+                e.mqttClient.subscribe(window.notificationMqttTopic);
+            })
+            this.mqttClient.on('message', function (topic, message) {
+                const data = JSON.parse(message.toString());
+                var notifications = e.state.notifications;
+                notifications.push(data);
+                e.setState({ notifications : notifications })
+            })
+        }
+    }
+
+    stopMqttNotificationListener() {
+        if(null !== this.mqttClient) {
+            this.mqttClient.end();
+        }
+    }
+
+    clearNotifications(e) {
+        e.stopPropagation();
+        this.setState({ notifications: [], notificationShow: false });
+    }
+
+    toggleNotificationBox(e) {
+        e.stopPropagation();
+        this.setState({ notificationShow : !this.state.notificationShow });
+    }
+
+    getNotificationIcon() {
+
+        if(this.state.notifications.length === 0) {
+            return;
+        }
+
+        return (
+            <div id="notification-box">
+                <div onClick={(event) => this.toggleNotificationBox(event)}>
+                    <i id="notification-icon" className="fa fa-exclamation-circle" />
+                </div>
+                {this.getNotificationBox()}
+            </div>
+        )
+
+    }
+
+    getNotificationBox() {
+
+        if(false === this.state.notificationShow) {
+            return;
+        }
+
+        return (
+            <div id="notification-box-inner" onClick={(event) => event.stopPropagation()}>
+                <button className="btn btn-primary w-100" onClick={(event) => this.clearNotifications(event)}>{i18n.t('notifications.close')}</button>
+                {this.state.notifications.map(function(object, i){
+                    return (
+                        <div className="notification-box-item" key={i}>
+                            {object.msg}
+                        </div>
+                    )
+                })}
+            </div>
+        )
+
+    }
+
     render() {
 
         return (
@@ -207,6 +285,7 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
+                {this.getNotificationIcon()}
             </div>
     )
     }

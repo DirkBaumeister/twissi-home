@@ -68,6 +68,8 @@
 |SCREENSAVER_TO_NIGHT_MODE_HOUR|Hour (0-24) when the screensaver will change to night mode (Only greyscale clock) (default: 22)|yes|
 |TANKER_KOENIG_API_KEY|Api key for the gasoline api of tanker koenig (germany)|yes|
 |TANKER_KOENIG_STATION_ID|Station ID of the gasoline station from tanker koenig|yes|
+|NOTIFICATION_MQTT_BROKER|MQTT Broker for websocket notifications|yes|
+|NOTIFICATION_MQTT_TOPIC|MQTT Topic to receive websocket notifications (Format: ```{"msg":"text"}```)|yes|
 
 ## Current limitations
 

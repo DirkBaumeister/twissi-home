@@ -26,7 +26,22 @@ class DefaultController extends AbstractController
 
     private $weatherForecastUrl;
 
-    public function __construct(string $locale, string $theme, int $screensaverTimeout, int $screensaverPhotoDuration, int $screensaverToDayModeHour, int $screensaverToNightModeHour, bool $surveillanceExternal, string $weatherForecastUrl)
+    private $notificationMqttBroker;
+
+    private $notificationMqttTopic;
+
+    public function __construct(
+        string $locale,
+        string $theme,
+        int $screensaverTimeout,
+        int $screensaverPhotoDuration,
+        int $screensaverToDayModeHour,
+        int $screensaverToNightModeHour,
+        bool $surveillanceExternal,
+        string $weatherForecastUrl,
+        ?string $notificationMqttBroker,
+        ?string $notificationMqttTopic
+    )
     {
         $this->locale = $locale;
         $this->theme = $theme;
@@ -36,6 +51,8 @@ class DefaultController extends AbstractController
         $this->screensaverToNightModeHour = $screensaverToNightModeHour;
         $this->surveillanceExternal = $surveillanceExternal;
         $this->weatherForecastUrl = $weatherForecastUrl;
+        $this->notificationMqttBroker = $notificationMqttBroker;
+        $this->notificationMqttTopic = $notificationMqttTopic;
     }
 
     /**
@@ -55,7 +72,9 @@ class DefaultController extends AbstractController
             'screensaverToDayModeHour' => $this->screensaverToDayModeHour,
             'screensaverToNightModeHour' => $this->screensaverToNightModeHour,
             'surveillanceExternal' => $this->surveillanceExternal,
-            'weatherForecastUrl' => $this->weatherForecastUrl
+            'weatherForecastUrl' => $this->weatherForecastUrl,
+            'notificationMqttBroker' => $this->notificationMqttBroker,
+            'notificationMqttTopic' => $this->notificationMqttTopic
         ]);
     }
 }

@@ -53,3 +53,4 @@ settings.reboot_system: System neustarten
 settings.restart_app: App neustarten
 settings.reload_system: System neu laden
 settings.switch_theme: Design wechseln
+notifications.close: Benachrichtungen löschen

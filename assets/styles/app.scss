@@ -43,6 +43,29 @@ body {
       }
     }
   }
+  #notification-box {
+    position: absolute;
+    top: 110px;
+    left: 15px;
+    z-index: 999999;
+    #notification-icon {
+      color: #c00;
+      font-size: 5rem;
+      cursor: pointer;
+      background-color: $white;
+      border-radius: 100%;
+    }
+    #notification-box-inner {
+      margin-top: 10px;
+      background-color: rgba(var(--bg-active), 1);
+      border-radius: 20px;
+      padding: 10px;
+      .notification-box-item {
+        padding: 10px;
+        font-size: 1.2rem;
+      }
+    }
+  }
   .table-events {
     background-color: var(--bg-color);
     color: var(--fg-color);

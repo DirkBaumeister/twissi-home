@@ -3,3 +3,5 @@ parameters:
   settings.mqtt.port: '%env(MQTT_PORT)%'
   settings.mqtt.client_id: '%env(MQTT_CLIENT_ID)%'
   settings.mqtt.command_topic: '%env(MQTT_COMMAND_TOPIC)%'
+  settings.notification.mqtt_broker: '%env(NOTIFICATION_MQTT_BROKER)%'
+  settings.notification.mqtt_topic: '%env(NOTIFICATION_MQTT_TOPIC)%'
