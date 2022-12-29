@@ -5,3 +5,5 @@ parameters:
   settings.mqtt.command_topic: '%env(MQTT_COMMAND_TOPIC)%'
   settings.notification.mqtt_broker: '%env(NOTIFICATION_MQTT_BROKER)%'
   settings.notification.mqtt_topic: '%env(NOTIFICATION_MQTT_TOPIC)%'
+  settings.gauge.mqtt_broker: '%env(GAUGE_MQTT_BROKER)%'
+  settings.gauge.mqtt_topic: '%env(GAUGE_MQTT_TOPIC)%'

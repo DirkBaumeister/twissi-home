@@ -1,4 +1,4 @@
-FROM php:7.4-cli AS builder
+FROM php:8.1-cli AS builder
 
 RUN apt-get update && apt-get install -y gnupg2
 
@@ -44,7 +44,7 @@ RUN cd /code && yarn install && yarn encore prod
 
 RUN rm -rf /code/node_modules
 
-FROM php:7.4-apache-buster
+FROM php:8.1-apache-buster
 
 COPY files/000-default.conf /etc/apache2/sites-available/.
 

@@ -30,6 +30,10 @@ class DefaultController extends AbstractController
 
     private $notificationMqttTopic;
 
+    private $gaugeMqttBroker;
+
+    private $gaugeMqttTopic;
+
     public function __construct(
         string $locale,
         string $theme,
@@ -40,7 +44,9 @@ class DefaultController extends AbstractController
         bool $surveillanceExternal,
         string $weatherForecastUrl,
         ?string $notificationMqttBroker,
-        ?string $notificationMqttTopic
+        ?string $notificationMqttTopic,
+        ?string $gaugeMqttBroker,
+        ?string $gaugeMqttTopic
     )
     {
         $this->locale = $locale;
@@ -53,6 +59,8 @@ class DefaultController extends AbstractController
         $this->weatherForecastUrl = $weatherForecastUrl;
         $this->notificationMqttBroker = $notificationMqttBroker;
         $this->notificationMqttTopic = $notificationMqttTopic;
+        $this->gaugeMqttBroker = $gaugeMqttBroker;
+        $this->gaugeMqttTopic = $gaugeMqttTopic;
     }
 
     /**
@@ -74,7 +82,9 @@ class DefaultController extends AbstractController
             'surveillanceExternal' => $this->surveillanceExternal,
             'weatherForecastUrl' => $this->weatherForecastUrl,
             'notificationMqttBroker' => $this->notificationMqttBroker,
-            'notificationMqttTopic' => $this->notificationMqttTopic
+            'notificationMqttTopic' => $this->notificationMqttTopic,
+            'gaugeMqttBroker' => $this->gaugeMqttBroker,
+            'gaugeMqttTopic' => $this->gaugeMqttTopic
         ]);
     }
 }

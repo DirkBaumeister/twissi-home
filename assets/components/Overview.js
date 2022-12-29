@@ -4,6 +4,8 @@ import ReactWeather from 'react-open-weather';
 import i18n from '../utils/i18n';
 import CurrencyFormat from 'react-currency-format';
 import axios from "axios";
+import Gauge from 'react-svg-gauge';
+const mqtt = require('mqtt')
 var dateFormat = require('dateformat');
 dateFormat.i18n = {
     dayNames: [
@@ -56,10 +58,11 @@ class Overview extends Component {
 
     constructor() {
         super();
-        this.state = { time: new Date(), reloadWeather: false, fuel: {status: null, diesel: 0, gasoline: 0, time: -1}, showForecast: false };
+        this.state = { time: new Date(), reloadWeather: false, fuel: {status: null, diesel: 0, gasoline: 0, time: -1}, showForecast: false, gaugeValue: null };
         this.timer = null;
         this.timer2 = null;
         this.timer3 = null;
+        this.mqttClient = null;
         this.setTime = this.setTime.bind(this);
         this.updateWeather = this.updateWeather.bind(this);
         this.getGasolinePrices = this.getGasolinePrices.bind(this);
@@ -71,12 +74,14 @@ class Overview extends Component {
         this.timer2 = setInterval(this.updateWeather, 900000);
         this.getGasolinePrices();
         this.timer3 = setInterval(this.getGasolinePrices, 60000);
+        this.startMqttGaugeListener();
     }
 
     componentWillUnmount() {
         clearTimeout(this.timer);
         clearTimeout(this.timer2);
         clearTimeout(this.timer3);
+        this.stopMqttGaugeListener();
     }
 
     getGasolinePrices() {
@@ -131,6 +136,27 @@ class Overview extends Component {
         this.setState({ showForecast: !this.state.showForecast });
     }
 
+    startMqttGaugeListener() {
+        if(window.gaugeMqttBroker && window.gaugeMqttTopic) {
+            this.mqttClient = mqtt.connect('mqtt://' + window.gaugeMqttBroker);
+            const e = this;
+            this.mqttClient.on('connect', function () {
+                e.mqttClient.subscribe(window.gaugeMqttTopic);
+            })
+            this.mqttClient.on('message', function (topic, message) {
+                const m = message.toString();
+                e.setState({ gaugeValue : m.length > 0 ? parseFloat(m) : null })
+                console.log(message.toString());
+            })
+        }
+    }
+
+    stopMqttGaugeListener() {
+        if(null !== this.mqttClient) {
+            this.mqttClient.end();
+        }
+    }
+
     render() {
 
         const renderFuelPrices = (data) => {
@@ -148,6 +174,20 @@ class Overview extends Component {
                     <small>{i18n.t('msg.last_updated')}: {dateFormat(new Date(data.time * 1000), 'HH:MM, dd.mm.yyyy')}</small>
                 </div>
             )
+        }
+
+        const renderGauge = (data) => {
+
+            if(null === data) {
+                return;
+            }
+
+            return (
+                <div id="co2-chart">
+                    <Gauge label={""} value={this.state.gaugeValue} color={"#0ff"} backgroundColor={"#222"} width={150} height={150} />
+                </div>
+            )
+
         }
 
         return(
@@ -169,6 +209,7 @@ class Overview extends Component {
                         </div>
                     </div>
                     <div className="col-8">
+                        {renderGauge(this.state.gaugeValue)}
                         <ReactWeather
                             forecast="5days"
                             apikey="-"

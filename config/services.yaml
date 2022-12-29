@@ -59,6 +59,8 @@ services:
             - '%settings.weather.forecast_url%'
             - '%settings.notification.mqtt_broker%'
             - '%settings.notification.mqtt_topic%'
+            - '%settings.gauge.mqtt_broker%'
+            - '%settings.gauge.mqtt_topic%'
 
     App\Controller\ApiController:
         arguments:
@@ -83,7 +85,7 @@ services:
     App\Service\Automation\Mqtt:
         arguments:
             - '@App\Service\Automation\StateStorage'
-            - '@PhpMqtt\Client\MQTTClient'
+            - '@PhpMqtt\Client\MqttClient'
             - '%settings.automation.entities%'
             - '%settings.mqtt.command_topic%'
             - '%settings.automation.external_control_url%'
@@ -116,7 +118,7 @@ services:
             - '@App\Service\Automation\Mqtt'
             - '@App\Service\Automation\HomeAssistant'
 
-    PhpMqtt\Client\MQTTClient:
+    PhpMqtt\Client\MqttClient:
         arguments:
             - '%settings.mqtt.host%'
             - '%settings.mqtt.port%'

@@ -169,6 +169,15 @@ body {
       height: 100%;
       z-index: 998;
     }
+    #co2-chart {
+      position: absolute;
+      top: 155px;
+      left: 470px;
+      svg > text {
+        fill: #fff !important;
+        font-size: 18px !important;
+      }
+    }
   }
   .rw-main {
     background: transparent;

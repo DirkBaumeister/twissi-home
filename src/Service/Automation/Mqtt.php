@@ -2,7 +2,7 @@
 
 namespace App\Service\Automation;
 
-use PhpMqtt\Client\MQTTClient;
+use PhpMqtt\Client\MqttClient;
 
 class Mqtt implements AutomationInterface
 {
@@ -16,7 +16,8 @@ class Mqtt implements AutomationInterface
 
     private $externalControlUrl;
 
-    public function __construct(StateStorage $stateStorage, MQTTClient $mqtt, array $automationEntities, string $commandTopic, string $externalControlUrl)
+    public function __construct(StateStorage $stateStorage, MqttClient $mqtt, array $automationEntities, string $commandTopic, 
+string $externalControlUrl)
     {
         $this->stateStorage = $stateStorage;
         $this->mqtt = $mqtt;
