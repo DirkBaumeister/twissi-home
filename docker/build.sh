@@ -6,6 +6,7 @@ if [ "$1" == "" ]; then
 fi
 
 docker build -t $1 \
+  --platform linux/amd64 \
   --build-arg GIT_COMMIT="$(git rev-parse HEAD)" \
   --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" \
   --build-arg GIT_URL="github.com" \

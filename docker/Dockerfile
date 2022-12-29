@@ -50,6 +50,11 @@ COPY files/000-default.conf /etc/apache2/sites-available/.
 
 RUN docker-php-ext-install pdo pdo_mysql && docker-php-ext-enable pdo pdo_mysql
 
+RUN apt-get -y update \
+    && apt-get install -y libicu-dev \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl
+
 RUN a2enmod headers
 
 COPY --from=builder /code /var/www/html
