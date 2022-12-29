@@ -146,7 +146,6 @@ class Overview extends Component {
             this.mqttClient.on('message', function (topic, message) {
                 const m = message.toString();
                 e.setState({ gaugeValue : m.length > 0 ? parseFloat(m) : null })
-                console.log(message.toString());
             })
         }
     }
