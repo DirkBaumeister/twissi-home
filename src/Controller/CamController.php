@@ -29,7 +29,7 @@ class CamController extends AbstractController
     public function index()
     {
         $client = new Client([
-            'base_uri' => 'http://' . $this->surveillanceIp,
+            'base_uri' => 'https://' . $this->surveillanceIp,
             'timeout'  => 2.0,
             'auth' => [$this->surveillanceUsername, $this->surveillancePassword]
         ]);
